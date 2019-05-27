@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="config.css">
+</head>
+<body>
+	<div id="app" class="app-container">
+		<div class="config-type-list">
+			<div 
+				v-for="group in config_groups"
+				:key="group.type"
+				class="config-group-item"
+				:class="{'config-group-item--active': group.type === active_type}"
+			>{{ group.type }}</div>
+		</div>
+		<div class="active-group-configs">
+			<div class="active-group-configs" v-if="active_group">
+				<config-item v-for="config in active_group.configs" :config="config" :key="config.key" @change="onConfigChange"></config-item>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script type="text/x-template" id="config-item">
+		<div class="config-item">
+			<div class="desc">{{ config.desc }}</div>
+			<select :value="config.value" @input="onInput($event.target.value)">
+				<option v-for="opt in opt_list" :value="opt.value" :key="opt.value">{{ opt.desc }}</option>
+			</select>
+		</div>
+	</script>
+	<script src="./index.js"></script>
+</body>
+
+</html>
